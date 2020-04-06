@@ -304,15 +304,17 @@ int main (int argc, char** argv) {
         // Write header file
         headerStringStream << "#ifndef " << targetName << "_h" << std::endl;
         headerStringStream << "#define " << targetName << "_h\n" << std::endl;
-        headerStringStream << "#include <gpu/Shader.h>\n" << std::endl;
+        headerStringStream << "#include <string>\n" << std::endl;
+        //      headerStringStream << "#include <gpu/Shader.h>\n" << std::endl;
         headerStringStream << "class " << targetName << " {" << std::endl;
         headerStringStream << "public:" << std::endl;
-        headerStringStream << "\tstatic gpu::Shader::Type getType() { return gpu::Shader::" << shaderTypeString[type] << "; }" << std::endl;
+    //    headerStringStream << "\tstatic gpu::Shader::Type getType() { return gpu::Shader::" << shaderTypeString[type] << "; }" << std::endl;
+        headerStringStream << "\tstatic const std::string& getType() { return \"" << shaderTypeString[type] << "\"; }" << std::endl;
         headerStringStream << "\tstatic const std::string& getSource() { return _source; }" << std::endl;
-        headerStringStream << "\tstatic gpu::ShaderPointer getShader();" << std::endl;
+   //     headerStringStream << "\tstatic gpu::ShaderPointer getShader();" << std::endl;
         headerStringStream << "private:" << std::endl;
         headerStringStream << "\tstatic const std::string _source;" << std::endl;
-        headerStringStream << "\tstatic gpu::ShaderPointer _shader;" << std::endl;
+    //    headerStringStream << "\tstatic gpu::ShaderPointer _shader;" << std::endl;
         headerStringStream << "};\n" << std::endl;
         headerStringStream << "#endif // " << targetName << "_h" << std::endl;
 
@@ -358,7 +360,7 @@ int main (int argc, char** argv) {
 
         // Write source file
         sourceStringStream << "#include \"" << targetName << ".h\"\n" << std::endl;
-        sourceStringStream << "gpu::ShaderPointer " << targetName << "::_shader;" << std::endl;
+  //      sourceStringStream << "gpu::ShaderPointer " << targetName << "::_shader;" << std::endl;
         sourceStringStream << "const std::string " << targetName << "::_source = std::string()";
         // Write the pages content
         for (auto page : pages) {
@@ -366,13 +368,13 @@ int main (int argc, char** argv) {
         }
         sourceStringStream << ";\n" << std::endl << std::endl;
 
-        sourceStringStream << "gpu::ShaderPointer " << targetName << "::getShader() {" << std::endl;
+  /*      sourceStringStream << "gpu::ShaderPointer " << targetName << "::getShader() {" << std::endl;
         sourceStringStream << "\tif (_shader==nullptr) {" << std::endl;
         sourceStringStream << "\t\t_shader = gpu::Shader::create" << shaderCreateString[type] << "(std::string(_source));" << std::endl;
         sourceStringStream << "\t}" << std::endl;
         sourceStringStream << "\treturn _shader;" << std::endl;
         sourceStringStream << "}\n" << std::endl;
-
+*/
         // Destination stream
         if (!destFilename.empty()) {
             std::fstream sourceFile;

@@ -6,9 +6,6 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL 3.12)
 endif()
 
 project(scribe)
-include("cmake/init.cmake")
-include("cmake/compiler.cmake")
-
 
 file(GLOB TARGET_SRCS src/*)
 add_executable(scribe ${TARGET_SRCS})
